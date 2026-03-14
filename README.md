@@ -27,7 +27,7 @@ Este es un sitio web estático simple, por lo que no requiere instalación de de
    git clone <URL_DEL_REPOSITORIO>
    ```
 2. Abre la carpeta del proyecto.
-3. Haz doble clic en el archivo `jhon-acevedo.html` para abrirlo directamente en tu navegador web, o utiliza una extensión como **Live Server** en VSCode para una mejor experiencia de desarrollo.
+3. Haz doble clic en el archivo `index.html` para abrirlo directamente en tu navegador web, o utiliza una extensión como **Live Server** en VSCode para una mejor experiencia de desarrollo.
 
 ## 👨‍💻 Autor
 **Jhon Acevedo** - QA Engineer · Creator · Builder
