@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jhon Acevedo — QA Engineer · Creator · Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111114;
+    --bg3: #18181d;
+    --amber: #f5a623;
+    --amber-dim: #c47f0f;
+    --amber-glow: rgba(245,166,35,0.12);
+    --cream: #e8dfc8;
+    --muted: #5a5a6a;
+    --border: rgba(245,166,35,0.15);
+    --text: #d4cfc3;
+    --white: #f0ede6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    border-bottom: 1px solid rgba(245,166,35,0.08);
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--amber); }
+
+  .nav-badge {
+    font-size: 0.65rem;
+    background: var(--amber-glow);
+    border: 1px solid var(--border);
+    color: var(--amber);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    opacity: 0.6;
+  }
+
+  .hero-grid-line:nth-child(1) { left: 33.33%; }
+  .hero-grid-line:nth-child(2) { left: 66.66%; }
+
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    font-weight: 800;
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.8s 0.1s ease both;
+    margin-bottom: 0.2rem;
+  }
+
+  .hero-name span {
+    color: var(--amber);
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+  }
+
+  .hero-jp {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    max-width: 700px;
+    border: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .hero-card {
+    padding: 1.5rem;
+    background: var(--bg2);
+    text-decoration: none;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--amber);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .hero-card:hover { background: var(--bg3); }
+  .hero-card:hover::after { transform: scaleX(1); }
+
+  .hero-card-num {
+    font-size: 0.6rem;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .hero-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-card-sub {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .hero-scroll-line {
+    width: 60px;
+    height: 1px;
+    background: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--amber);
+    animation: slide 2s infinite;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 7rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 4rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-left { position: sticky; top: 7rem; }
+
+  .about-quote {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    line-height: 1.6;
+    border-left: 2px solid var(--amber);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-bio {
+    font-size: 0.82rem;
+    line-height: 1.95;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .ikigai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .ikigai-cell {
+    padding: 1.4rem;
+    background: var(--bg2);
+  }
+
+  .ikigai-cell-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.6rem;
+  }
+
+  .ikigai-cell-text {
+    font-size: 0.78rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .personality-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.9rem;
+    color: var(--muted);
+    border-radius: 2px;
+  }
+
+  .tag.highlight {
+    border-color: var(--amber);
+    color: var(--amber);
+    background: var(--amber-glow);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -0.35rem;
+    top: 0.45rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--amber);
+  }
+
+  .timeline-date {
+    font-size: 0.62rem;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-event {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-detail {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── WORK ── */
+  #work { background: var(--bg); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+  }
+
+  .skills-block { margin-bottom: 3rem; }
+
+  .skills-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .skill-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-name {
+    font-size: 0.75rem;
+    color: var(--text);
+    min-width: 160px;
+  }
+
+  .skill-track {
+    flex: 1;
+    height: 2px;
+    background: var(--bg3);
+    position: relative;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--amber-dim), var(--amber));
+    position: relative;
+  }
+
+  .skill-fill::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  .service-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .service-card {
+    padding: 2rem 1.5rem;
+    background: var(--bg2);
+  }
+
+  .service-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .service-desc {
+    font-size: 0.73rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── SETUP ── */
+  #setup { background: var(--bg2); }
+
+  .setup-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .setup-item {
+    padding: 2rem;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .setup-item:hover { background: var(--bg3); }
+
+  .setup-item::before {
+    content: attr(data-emoji);
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    opacity: 0.15;
+  }
+
+  .setup-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.8rem;
+  }
+
+  .setup-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .setup-spec {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .setup-note {
+    font-size: 0.68rem;
+    font-style: italic;
+    color: var(--amber);
+    opacity: 0.7;
+  }
+
+  /* ── INTERESTS ── */
+  #interests { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+
+  .interest-col {}
+
+  .top-list {
+    margin-bottom: 3rem;
+  }
+
+  .top-list-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .top-list-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .top-list-rank {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.4rem;
+    color: var(--amber);
+    opacity: 0.4;
+    min-width: 2rem;
+    text-align: right;
+  }
+
+  .top-list-text {
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+
+  .top-list-sub {
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  /* ── LIFESTYLE ── */
+  #lifestyle { background: var(--bg2); }
+
+  .lifestyle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .lifestyle-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--bg);
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .lifestyle-card:hover {
+    border-color: rgba(245,166,35,0.35);
+    background: var(--bg3);
+  }
+
+  .lifestyle-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .lifestyle-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .lifestyle-card-body {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── THOUGHTS ── */
+  #thoughts { }
+
+  .thoughts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .thought-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    position: relative;
+  }
+
+  .thought-card::before {
+    content: '"';
+    font-family: 'Shippori Mincho', serif;
+    font-size: 5rem;
+    color: var(--amber);
+    opacity: 0.08;
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .thought-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1rem;
+    color: var(--cream);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .thought-origin {
+    font-size: 0.65rem;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── GOALS ── */
+  #goals { background: var(--bg2); }
+
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .goal-category {
+    padding: 2rem;
+    background: var(--bg);
+  }
+
+  .goal-cat-title {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+  }
+
+  .goal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .goal-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--amber);
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .goal-text {
+    font-size: 0.78rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── WISHLIST ── */
+  #wishlist { }
+
+  .wish-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .wish-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: var(--bg2);
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .wish-card:hover { border-color: var(--amber-dim); }
+
+  .wish-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .wish-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .wish-note {
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.3rem;
+    color: var(--amber);
+  }
+
+  .footer-tagline {
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-link {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover { color: var(--amber); }
+
+  .footer-copy {
+    font-size: 0.62rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* ── MBTI BADGE ── */
+  .mbti-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    margin-top: 2rem;
+    background: var(--bg2);
+  }
+
+  .mbti-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+  }
+
+  .mbti-name {
+    font-size: 0.72rem;
+    color: var(--text);
+  }
+
+  .mbti-sub {
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── PEOPLE GRID ── */
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .person-card {
+    padding: 1.5rem;
+    background: var(--bg2);
+  }
+
+  .person-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .person-role {
+    font-size: 0.65rem;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .person-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide {
+    from { left: -100%; }
+    to   { left: 100%; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── AMBIENT GLOW ── */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  /* ── DIVIDER ── */
+  .amber-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--amber);
+    margin: 2rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">JA · 丸</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#lifestyle">Lifestyle</a></li>
+    <li><a href="#thoughts">Thoughts</a></li>
+    <li><a href="#goals">Goals</a></li>
+  </ul>
+  <span class="nav-badge">Available · Cúcuta 🇨🇴</span>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="glow-orb" style="width:600px;height:600px;background:rgba(245,166,35,0.04);top:-200px;right:-100px;"></div>
+  <div class="hero-grid-line"></div>
+  <div class="hero-grid-line"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Jhon Carlos Acevedo Mendoza · Born May 8, 1999</p>
+    <h1 class="hero-name">
+      QA<br>
+      <span>Engineer</span><br>
+      + Creator
+    </h1>
+    <p class="hero-jp">品質 · 構築 · 成長</p>
+    <p class="hero-desc">
+      First-generation tech professional from Arboledas, Colombia. Building software quality, personal systems, and a career from the ground up. Currently at Nelumbo Consultores, Cúcuta — transitioning to QA Automation.
+    </p>
+
+    <div class="hero-cards">
+      <a href="#work" class="hero-card">
+        <span class="hero-card-num">01</span>
+        <div class="hero-card-title">Work</div>
+        <div class="hero-card-sub">QA · Dev · Projects</div>
+      </a>
+      <a href="#about" class="hero-card">
+        <span class="hero-card-num">02</span>
+        <div class="hero-card-title">Personal World</div>
+        <div class="hero-card-sub">Identity · Story · People</div>
+      </a>
+      <a href="#setup" class="hero-card">
+        <span class="hero-card-num">03</span>
+        <div class="hero-card-title">Setup & Life</div>
+        <div class="hero-card-sub">Tech · Motos · Interests</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    Scroll
+    <span class="hero-scroll-line"></span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about" style="border-top:1px solid var(--border);">
+<section style="border:none; display:grid; grid-template-columns:1fr 1fr; gap:5rem; padding:7rem 3rem; align-items:start;">
+  <div class="about-left reveal">
+    <p class="section-label">Who I Am</p>
+    <h2 class="section-title">About<br>Jhon</h2>
+
+    <blockquote class="about-quote">
+      "No tengo prisa. Tengo dirección."<br>
+      <small style="font-size:0.75rem; color:var(--muted);">I'm not in a hurry. I have direction.</small>
+    </blockquote>
+
+    <p class="about-bio">
+      I'm a Systems Engineering student (UNAD, 8th semester) and QA Manual Tester at Nelumbo Consultores in Cúcuta, Colombia. I grew up in Arboledas, Norte de Santander, and built my way into tech through construction work, online education, and stubborn persistence.
+    </p>
+    <p class="about-bio">
+      My path wasn't linear — it was construction sites, failed semesters, a near-dismissal at my first real tech job, and a motorcycle I saved up for while pouring cement. Every detour was a lesson I now draw from daily.
+    </p>
+
+    <div class="amber-divider"></div>
+
+    <div class="mbti-badge">
+      <div>
+        <div class="mbti-type">ENFP</div>
+      </div>
+      <div>
+        <div class="mbti-name">The Campaigner</div>
+        <div class="mbti-sub">Extraverted · Intuitive · Feeling · Perceiving</div>
+      </div>
+    </div>
+
+    <div class="personality-tags">
+      <span class="tag highlight">Radical Self-Honesty</span>
+      <span class="tag highlight">Resilient</span>
+      <span class="tag">English Learner</span>
+      <span class="tag">Content Creator</span>
+      <span class="tag">Journaling</span>
+      <span class="tag">Japanese Culture</span>
+      <span class="tag">American Culture</span>
+      <span class="tag">QA Automation (learning)</span>
+    </div>
+
+    <div class="ikigai-grid" style="margin-top:3rem;">
+      <div class="ikigai-cell">
+        <div class="ikigai-cell-label">❤️ What I Love</div>
+        <div class="ikigai-cell-text">Technology as a creation tool, communicating & teaching, storytelling, helping others navigate systems</div>
+      </div>
+      <div class="ikigai-cell">
+        <div class="ikigai-cell-label">💪 What I'm Good At</div>
+        <div class="ikigai-cell-text">Quality thinking, pattern recognition, connecting across social strata, using AI to accelerate learning</div>
+      </div>
+      <div class="ikigai-cell">
+        <div class="ikigai-cell-label">🌍 What the World Needs</div>
+        <div class="ikigai-cell-text">Authentic Spanish content creators documenting real paths into tech from small Colombian cities</div>
+      </div>
+      <div class="ikigai-cell">
+        <div class="ikigai-cell-label">💰 What I Can Be Paid For</div>
+        <div class="ikigai-cell-text">QA Testing, web development, tech content creation, freelance consulting</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal" style="transition-delay:0.15s">
+    <p class="section-label" style="margin-bottom:2rem;">Life Timeline</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">January 2025</div>
+        <div class="timeline-event">Enrolled at UNAD</div>
+        <div class="timeline-detail">Systems Engineering via distance learning — removing the geographic barrier to studying while working construction.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">February 28, 2025</div>
+        <div class="timeline-event">First Motorcycle 🏍️</div>
+        <div class="timeline-detail">TX 200 Veneca, 2.5M COP — bought with construction earnings. First major financial achievement.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">May 2025</div>
+        <div class="timeline-event">QA Interview at Nelumbo</div>
+        <div class="timeline-detail">Traveled to Cúcuta for the interview. Signed first independent apartment lease in Barrio Lleras.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">June 10, 2025</div>
+        <div class="timeline-event">Near-Dismissal — Pivots Hard</div>
+        <div class="timeline-detail">"Today I almost got fired." Instead of quitting, restructured testing methodology entirely. Became stronger.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">July 28, 2025</div>
+        <div class="timeline-event">Official Contract at Nelumbo ✅</div>
+        <div class="timeline-detail">Confirmed QA Tester. Projects: iCANCHA, CheckPlus, Obras MX, IDP. A goal articulated since January.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">December 2025</div>
+        <div class="timeline-event">Laptop + Bonus 💻</div>
+        <div class="timeline-detail">"Por fin tengo la PC que siempre quise y con mi propio esfuerzo." ASUS VivoBook purchased with credit.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">January 2026</div>
+        <div class="timeline-event">SmartFit + New Look</div>
+        <div class="timeline-detail">Joined gym. Rebuilt CV. Purchased Arturo Calle clothing. Starting to invest in self-image and health.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">March 8, 2026</div>
+        <div class="timeline-event">Claude Pro Subscription</div>
+        <div class="timeline-detail">Subscribed to accelerate frontend learning, finish Arrenda project, and grow as a professional.</div>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top:4rem; margin-bottom:2rem;">People Who Matter</p>
+    <div class="people-grid">
+      <div class="person-card">
+        <div class="person-name">Anderson</div>
+        <div class="person-role">Brother · Best Friend</div>
+        <div class="person-desc">Emotional anchor. Loans money, travels together, present in almost every month of the journals.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Boris Murillo</div>
+        <div class="person-role">Social Anchor · Cúcuta</div>
+        <div class="person-desc">Shared outings, practical advice on motos. Social foundation in the new city.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Andrés Rincón</div>
+        <div class="person-role">Friend · Mentor</div>
+        <div class="person-desc">Instrumental in landing the Nelumbo job. Helped with UNAD enrollment. Key connector.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Elkin Granados</div>
+        <div class="person-role">Professional Connector</div>
+        <div class="person-desc">Introduced Jhon to Nelumbo directly — enabled the first tech job.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Lusdey Ramírez</div>
+        <div class="person-role">QA Manager, Nelumbo</div>
+        <div class="person-desc">Direct supervisor. Her feedback shaped his QA methodology significantly after the June crisis.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Farid Duarte</div>
+        <div class="person-role">QA Colleague</div>
+        <div class="person-desc">Admired for fluent English and skill. The aspirational benchmark for where Jhon is heading.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- WORK -->
+<section id="work" class="reveal">
+  <p class="section-label">Professional</p>
+  <h2 class="section-title">Work &<br>Skills</h2>
+
+  <div class="work-grid">
+    <div>
+      <div class="skills-block">
+        <div class="skills-category">QA & Testing</div>
+        <div class="skill-bar">
+          <span class="skill-name">QA Manual Testing</span>
+          <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">Bug Reporting (Jira)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">Test Case Design</span>
+          <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">Postman · API Testing</span>
+          <div class="skill-track"><div class="skill-fill" style="width:65%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">QA Automation (Playwright)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:20%"></div></div>
+        </div>
+      </div>
+
+      <div class="skills-block">
+        <div class="skills-category">Development</div>
+        <div class="skill-bar">
+          <span class="skill-name">HTML · CSS · Bootstrap</span>
+          <div class="skill-track"><div class="skill-fill" style="width:72%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">React (Beginner)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:35%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">Java · Python Basics</span>
+          <div class="skill-track"><div class="skill-fill" style="width:30%"></div></div>
+        </div>
+      </div>
+
+      <div class="skills-block">
+        <div class="skills-category">Tools & Platforms</div>
+        <div class="skill-bar">
+          <span class="skill-name">AI Tools (Claude, ChatGPT)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">OBS · Trello · Teams</span>
+          <div class="skill-track"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <span class="skill-name">English (A2 → B1 goal)</span>
+          <div class="skill-track"><div class="skill-fill" style="width:22%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skills-category" style="margin-bottom:1.5rem;">Services</p>
+      <div class="service-cards">
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <div class="service-name">QA Manual Testing</div>
+          <div class="service-desc">End-to-end test design, bug reporting, acceptance criteria, Android/iOS/Web coverage.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <div class="service-name">QA Consulting</div>
+          <div class="service-desc">Testing strategy, process improvement, documentation and team methodology.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <div class="service-name">Web Development</div>
+          <div class="service-desc">Landing pages, small business sites. Deployed on GitHub Pages & Netlify.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🤖</div>
+          <div class="service-name">AI-Assisted Workflows</div>
+          <div class="service-desc">Prompt engineering, AI-powered productivity, documentation acceleration.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem; border:1px solid var(--border); padding:2rem; background:var(--bg2);">
+        <p class="skills-category" style="margin-bottom:1.5rem;">Projects</p>
+        <div class="timeline-item" style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:1.5rem; margin-bottom:1.5rem;">
+          <div class="timeline-date">In Progress · 2026</div>
+          <div class="timeline-event">Arrenda App</div>
+          <div class="timeline-detail">Real estate rental management platform. Built with AI assistance via Claude Pro.</div>
+        </div>
+        <div class="timeline-item" style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:1.5rem; margin-bottom:1.5rem;">
+          <div class="timeline-date">Completed · 2023</div>
+          <div class="timeline-event">Artemisa Plant Shop</div>
+          <div class="timeline-detail">First real project — e-commerce front for a plant shop. Still live on LinkedIn portfolio.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Professional · 2025</div>
+          <div class="timeline-event">iCANCHA · CheckPlus · Obras MX · IDP</div>
+          <div class="timeline-detail">QA projects at Nelumbo Consultores. Multi-platform testing across web, Android, iOS.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETUP -->
+<section id="setup" class="reveal">
+  <p class="section-label">Tech Lab</p>
+  <h2 class="section-title">My<br>Setup</h2>
+
+  <div class="setup-grid">
+    <div class="setup-item" data-emoji="💻">
+      <div class="setup-tag">Primary Laptop</div>
+      <div class="setup-name">ASUS VivoBook X1605VA</div>
+      <div class="setup-spec">
+        Intel i5-13420H (13th Gen) · 16 GB RAM<br>
+        477 GB SSD · Intel UHD Graphics · Windows 11 Home
+      </div>
+      <div class="setup-note">"Por fin tengo la PC que siempre quise y con mi propio esfuerzo."</div>
+    </div>
+
+    <div class="setup-item" data-emoji="🖥">
+      <div class="setup-tag">External Monitor</div>
+      <div class="setup-name">Lenovo L27i-4A GRS</div>
+      <div class="setup-spec">
+        27" · IPS Panel<br>
+        Dual-screen remote work setup
+      </div>
+      <div class="setup-note">Bought February 2026 — first real home office configuration.</div>
+    </div>
+
+    <div class="setup-item" data-emoji="📱">
+      <div class="setup-tag">Smartphone</div>
+      <div class="setup-name">Motorola Moto G60 Fusion</div>
+      <div class="setup-spec">
+        Work · Banking apps<br>
+        Content & branding · Decent camera
+      </div>
+      <div class="setup-note">Daily driver for mobile QA testing and content creation.</div>
+    </div>
+
+    <div class="setup-item" data-emoji="🎧">
+      <div class="setup-tag">Headphones</div>
+      <div class="setup-name">Sony WH-CH720N</div>
+      <div class="setup-spec">
+        Active Noise Cancellation<br>
+        English study · Work calls · Deep focus
+      </div>
+      <div class="setup-note">Essential for focused English learning and remote meetings.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem;">
+    <p class="section-label" style="margin-bottom:2rem;">Motorcycles</p>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:1rem;">
+      <div style="border:1px solid var(--border); padding:2rem; background:var(--bg);">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:0.7rem;">Current · First Owned</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;">TX 200 Veneca</div>
+        <div style="font-size:0.75rem;color:var(--muted);">Purchased Feb 28, 2025 with construction savings. Symbol of first financial independence.</div>
+      </div>
+      <div style="border:1px solid var(--border); padding:2rem; background:var(--bg);">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:0.7rem;">Top Dream · On Wishlist</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;">Suzuki Gixxer FI 150</div>
+        <div style="font-size:0.75rem;color:var(--muted);">A goal mentioned since early 2025. Freedom asset — not a status symbol.</div>
+      </div>
+      <div style="border:1px solid var(--border); padding:2rem; background:var(--bg);">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:0.7rem;">Next Horizon</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;">A Car</div>
+        <div style="font-size:0.75rem;color:var(--muted);">5-year goal. Expands geographic and social reach. Starting motorcycle license process soon.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests" style="padding:7rem 3rem; border-top:1px solid var(--border);">
+  <p class="section-label">Entertainment & Culture</p>
+  <h2 class="section-title">Interests</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4rem;">
+    <div class="reveal">
+      <div class="top-list">
+        <div class="top-list-title">🎌 Anime</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">一</div>
+          <div><div class="top-list-text">Top Anime #1</div><div class="top-list-sub">Ranked favorite</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">二</div>
+          <div><div class="top-list-text">Top Anime #2</div><div class="top-list-sub">Ranked favorite</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">三</div>
+          <div><div class="top-list-text">Top Anime #3</div><div class="top-list-sub">Ranked favorite</div></div>
+        </div>
+      </div>
+
+      <div class="top-list">
+        <div class="top-list-title">🎮 Video Games</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">1</div>
+          <div><div class="top-list-text">Halo Reach</div><div class="top-list-sub">Legendary classic</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">2</div>
+          <div><div class="top-list-text">Titanfall 2</div><div class="top-list-sub">Finished Feb 2026 — loved it</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">3</div>
+          <div><div class="top-list-text">Warzone</div><div class="top-list-sub">Social sessions with friends</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.1s">
+      <div class="top-list">
+        <div class="top-list-title">📚 Books & Topics</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">1</div>
+          <div><div class="top-list-text">Self-development</div><div class="top-list-sub">Action over motivation</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">2</div>
+          <div><div class="top-list-text">Systems Engineering</div><div class="top-list-sub">UNAD coursework</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">3</div>
+          <div><div class="top-list-text">QA Automation</div><div class="top-list-sub">Playwright · CI/CD</div></div>
+        </div>
+      </div>
+
+      <div class="top-list">
+        <div class="top-list-title">🌍 Cultures I Admire</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">🇯🇵</div>
+          <div><div class="top-list-text">Japanese Culture</div><div class="top-list-sub">Discipline, aesthetics, anime</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">🇺🇸</div>
+          <div><div class="top-list-text">American Culture</div><div class="top-list-sub">Tech ecosystem, opportunity mindset</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">🇰🇷</div>
+          <div><div class="top-list-text">South Korea</div><div class="top-list-sub">Dream travel destination</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.2s">
+      <div class="top-list">
+        <div class="top-list-title">📺 TV / Movies</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">1</div>
+          <div><div class="top-list-text">Favorites TBD</div><div class="top-list-sub">Add your top picks</div></div>
+        </div>
+      </div>
+
+      <div class="top-list">
+        <div class="top-list-title">📱 Content Creators</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">▶</div>
+          <div><div class="top-list-text">Carlos Gómez</div><div class="top-list-sub">YouTube · Co-podcaster · Role model</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">▶</div>
+          <div><div class="top-list-text">Tech creators (ES)</div><div class="top-list-sub">QA / dev community</div></div>
+        </div>
+      </div>
+
+      <div class="top-list">
+        <div class="top-list-title">🗣️ Languages</div>
+        <div class="top-list-item">
+          <div class="top-list-rank">🇪🇸</div>
+          <div><div class="top-list-text">Spanish</div><div class="top-list-sub">Native · Cúcuta dialect</div></div>
+        </div>
+        <div class="top-list-item">
+          <div class="top-list-rank">🇺🇸</div>
+          <div><div class="top-list-text">English</div><div class="top-list-sub">A2 → B1 goal → C1 dream</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section id="lifestyle" class="reveal">
+  <p class="section-label">How I Live</p>
+  <h2 class="section-title">Lifestyle</h2>
+
+  <div class="lifestyle-grid">
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">🍽️</div>
+      <div class="lifestyle-card-title">Food & Drink</div>
+      <div class="lifestyle-card-body">
+        Bandeja paisa at Doña Juana. Evening rice, tuna, and chipotle sauce — his practical recovery meal. Latte frío deslactosado at Toffee café. Learning to cook at home consistently to save money and eat better.
+      </div>
+    </div>
+
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">💪</div>
+      <div class="lifestyle-card-title">Health & Fitness</div>
+      <div class="lifestyle-card-body">
+        SmartFit La Gran Vía member since January 2026. Goal: reach 75 kg. Training at least 3x/week. Improving sleep, hydration, and nutrition. The gym membership is both practical and symbolic — a deferred goal finally acted on.
+      </div>
+    </div>
+
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">👕</div>
+      <div class="lifestyle-card-title">Fashion & Style</div>
+      <div class="lifestyle-card-body">
+        Arturo Calle. Invests in clean, professional clothes as a form of self-respect. "Las personas realmente cambian la forma en la que me tratan." Gym wear — working on getting the fit right. Asks for honest opinions.
+      </div>
+    </div>
+
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">💛</div>
+      <div class="lifestyle-card-title">Love Languages</div>
+      <div class="lifestyle-card-body">
+        Physical touch · Acts of service · Words of affirmation · Gifts · Quality time. Gives more than he receives in relationships. Most durable bonds are with people who accept him unconditionally — regardless of status.
+      </div>
+    </div>
+
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">📍</div>
+      <div class="lifestyle-card-title">My Cities</div>
+      <div class="lifestyle-card-body">
+        <strong style="color:var(--white)">Arboledas</strong> — hometown, family, roots, reflection.<br>
+        <strong style="color:var(--white)">Cúcuta</strong> — city of opportunity, job, apartment, growth.<br>
+        Future: Bogotá or Manizales for career & climate.
+      </div>
+    </div>
+
+    <div class="lifestyle-card">
+      <div class="lifestyle-card-icon">🤝</div>
+      <div class="lifestyle-card-title">Friendships</div>
+      <div class="lifestyle-card-body">
+        "A friend is someone who can help provide — and that starts with yourself." Naturally social but anxious about maintaining relationships across economic gaps. Most durable: Anderson (brother), Boris (Cúcuta anchor), Andrés (mentor).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THOUGHTS -->
+<section id="thoughts" class="reveal" style="background:var(--bg2);">
+  <p class="section-label">Personal Journals</p>
+  <h2 class="section-title">Lessons &<br>Reflections</h2>
+
+  <div class="thoughts-grid">
+    <div class="thought-card">
+      <div class="thought-text">Attention is the most valuable currency. What I give attention to is what builds my future.</div>
+      <div class="thought-origin">Journal · January 2025</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">La motivación no sirve de nada. Lo importante es la acción.</div>
+      <div class="thought-origin">Journal · Recurring · 2025</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">La tranquilidad no es un lujo ni una meta lejana, sino una suma de decisiones pequeñas hechas con constancia.</div>
+      <div class="thought-origin">Journal · January 11, 2025</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">Fear of judgment cost me years. "Antes no tomaba ventaja del tiempo por miedo a ser juzgado."</div>
+      <div class="thought-origin">Journal · Multiple entries</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">One completed project beats five abandoned ones. Finishing matters more than starting.</div>
+      <div class="thought-origin">Lesson · Extracted from journals</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">Communication is a professional superpower. The near-dismissal taught me that survival comes from learning to communicate proactively.</div>
+      <div class="thought-origin">Journal · June 2025 crisis</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">Invest in tools and assets, not just experiences. The laptop, gym, Claude Pro, monitor — these are investments in productive capacity.</div>
+      <div class="thought-origin">Behavioral pattern · 2026</div>
+    </div>
+
+    <div class="thought-card">
+      <div class="thought-text">The environment shapes the person. Arboledas keeps me stagnant. Cúcuta forces growth. Living independently accelerates development.</div>
+      <div class="thought-origin">Journal · Observed across months</div>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section id="goals" class="reveal">
+  <p class="section-label">Direction</p>
+  <h2 class="section-title">Goals &<br>Horizon</h2>
+
+  <div class="goals-grid">
+    <div class="goal-category">
+      <div class="goal-cat-title">📅 1 Year · 2026–2027</div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Complete UFPS→UNAD homologation before June 2026</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Learn Playwright — first automated test suite by September</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Reach English B1 via daily structured practice</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Launch ONE complete portfolio project (Arrenda)</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Negotiate salary to 2.5M+ COP by July 2026</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Post 1 piece of professional content/week (LinkedIn or TikTok)</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Save 10% of every paycheck to NuBank CDT</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Reach 75 kg at SmartFit (3x/week minimum)</div></div>
+    </div>
+
+    <div class="goal-category">
+      <div class="goal-cat-title">📆 5 Years · 2026–2031</div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Graduate Systems Engineering from UNAD (2028)</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">QA Automation seniority — Playwright, API, CI/CD — 4-6M COP/month</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Reach English C1 — unlocks international contracts</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Land first remote international contract</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Purchase Gixxer FI 150 and eventually a car</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Move to Bogotá or Medellín if career demands it</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Build content channel with 1,000+ genuine followers</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">6 months of living expenses in savings</div></div>
+    </div>
+
+    <div class="goal-category">
+      <div class="goal-cat-title">🔭 10 Years · 2026–2036</div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Own or co-own a tech consulting operation</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Recognized voice in Colombian tech — QA & non-traditional paths</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Achieve full financial support for his mother</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">International travel — conferences, tech communities</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Mentor at least one person from a small Colombian municipality into tech</div></div>
+      <div class="goal-item"><div class="goal-dot"></div><div class="goal-text">Build genuine relational wealth — close friends, stable partnership, family supported</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WISHLIST -->
+<section id="wishlist" class="reveal" style="background:var(--bg2);">
+  <p class="section-label">On My Radar</p>
+  <h2 class="section-title">Wishlist</h2>
+
+  <div class="wish-grid">
+    <div class="wish-card">
+      <div class="wish-emoji">🏍️</div>
+      <div class="wish-name">Suzuki Gixxer FI 150</div>
+      <div class="wish-note">Dreaming about this since early 2025. Freedom on two wheels.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">🚗</div>
+      <div class="wish-name">A Car</div>
+      <div class="wish-note">Geographic independence. 5-year horizon goal.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">🏠</div>
+      <div class="wish-name">Own Apartment</div>
+      <div class="wish-note">Beyond renting — building something permanent.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">🖥️</div>
+      <div class="wish-name">Gaming PC Setup</div>
+      <div class="wish-note">A proper gaming rig + mechanical keyboard + better chair.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">🌊</div>
+      <div class="wish-name">Washing Machine</div>
+      <div class="wish-note">Practical independence. On the short-term buy list.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">✈️</div>
+      <div class="wish-name">South Korea</div>
+      <div class="wish-note">Dream travel destination. Mentioned when asked where he'd go.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">📸</div>
+      <div class="wish-name">Photography Course</div>
+      <div class="wish-note">Interested in learning to edit video and shoot well.</div>
+    </div>
+    <div class="wish-card">
+      <div class="wish-emoji">🏡</div>
+      <div class="wish-name">Help Mamá</div>
+      <div class="wish-note">The deepest motivator. The quiet engine behind everything.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Jhon Acevedo · 丸</div>
+    <div class="footer-tagline">QA Engineer · Cúcuta, Colombia · Building since 2025</div>
+  </div>
+
+  <div class="footer-links">
+    <a href="#about" class="footer-link">About</a>
+    <a href="#work" class="footer-link">Work</a>
+    <a href="#setup" class="footer-link">Setup</a>
+    <a href="#interests" class="footer-link">Interests</a>
+    <a href="#thoughts" class="footer-link">Thoughts</a>
+    <a href="#goals" class="footer-link">Goals</a>
+  </div>
+
+  <div class="footer-copy">© 2026 Jhon Carlos Acevedo Mendoza</div>
+</footer>
+
+<script>
+  // Intersection observer for reveal animations
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth skill bar animation on scroll
+  const skillFills = document.querySelectorAll('.skill-fill');
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.transition = 'width 1.2s cubic-bezier(0.4,0,0.2,1)';
+      }
+    });
+  }, { threshold: 0.3 });
+
+  skillFills.forEach(el => {
+    const target = el.style.width;
+    el.style.width = '0%';
+    setTimeout(() => {
+      el.style.width = target;
+    }, 300);
+    skillObserver.observe(el);
+  });
+</script>
+</body>
+</html>
